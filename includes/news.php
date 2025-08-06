@@ -6,7 +6,6 @@ $params = array(
 );
 
 $posts = get_posts( $params )
-
 ?>
 
 <section class="news">
@@ -42,7 +41,13 @@ $posts = get_posts( $params )
                     <a href="<?=$link?>" target="<?=$target?>" class="swiper-slide news-card <?=$upcoming_class?>">
                         <img src="<?=get_the_post_thumbnail_url($postID, 'large');?>" class="news-card__image">
                         <div class="news-card__info">
-                            <span class="news-card__date text_body"><?=get_the_date();?></span>
+                            <span class="news-card__date text_body">
+                                <?php
+                                    $publication_date = get_field('publication_date', $postID);
+
+                                    echo $publication_date ? $publication_date : get_the_date();
+                                ?>
+                            </span>
                             <? if(!empty(get_field('external_name', $postID))): ?>
                                 <div class="news-card__separator"></div>
                                 <span class="news-card__category text_body"><?=get_field('external_name', $postID)?></span>
